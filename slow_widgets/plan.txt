@@ -1,1 +1,37 @@
-test
+The scenario describes the following:
+
+### Main complaints ###
+Is slow looking up nearby widgets
+Doesn't provide user feedback when importing favorite widgets
+
+### Given scenario ###
+A team is in place to implement changes
+The metrics below are all that are currently captured for the application
+Assume a 6-week period with multiple deploy windows to improve the application
+
+The following serves as general guidelines that should assess the current situation, define where the problem lies and offer possible solutions.
+
+* Check for previous historic data regarding the app
+  In order to address the problem successfully, it is of uttermost importance to find the root cause of the problem. Regarding my experience, it is often proven that historic data and tidy log management can help to meet and surpass SLAs for incident scenarios. Some things to look for would be:
+  - When was the issue first reported?
+  - Is this the first time that this issue has arisen?
+  - Has been there a recent implementation that could have resulted in the described incident?
+
+Based on the data provided in the scenario, the connectivity could be briefly described in the following manner: User ---> App--> External System 
+In order to break down the problem, a good approach would be to narrow down the segments in which the latency happens. Does it happen when the User visits the App? or instead when the Apps visits the External System? or both?
+
+In the case we are also owners of the External System, it would be also necessary to follow the path until the Database tier is reached and measure for latency in each network segment. This approach will assist the team in finding where the bottleneck lies.
+
+* What to look for:
+  - CPU Utilization & Load Average Minute, both for App and Database instances. Consider scaling vertically or horizontally if the metrics evidence that the instances are undersized.
+
+While this document provides initial guidelines to determine the root cause, it is just as important to deeply debug the affected tier once identified. The following possible solutions are aimed towards design and scalability flaws rather than in-depth service troubleshooting and problem-solving.
+
+* Possible solutions for the App Tier
+  - Provision a CDN layer on top of the App.
+  - Provision DNS records using a latency-based policy
+
+* Possible solutions for Database Tier
+  - Consider the use of provisioned IOPS to address unpredictable I/O spikes 
+  - Evaluate the current Database deployment and purpose upgrades if necessary (Ex: If hosted in AWS, Amazon Aurora: PostgreSQL-Compatible Edition offers higher throughput than PostgreSQL)
+  - Evaluate the current design for Elasticache Redis cluster implementation in front of Database Tier to reduce read loads.
