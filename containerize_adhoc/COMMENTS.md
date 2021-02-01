@@ -14,6 +14,7 @@ The following requirement was addressed as follows:
 By using `firewall-cmd`, the testing host was running CentOS8
 
   `firewall-cmd --remove-port=8000/tcp --permanent`
+  
   `firewall-cmd reload`
 
 Since Docker uses its own zone, dropping TCP traffic on port 8000 from the public zone should address the requirement.
