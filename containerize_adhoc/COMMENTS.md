@@ -24,4 +24,4 @@ Since Docker uses its own zone, dropping TCP traffic on port 8000 from the publi
 The task can be tested by running:
 `docker-compose up`
 
-and visiting localhost on a web browser, or artenativly `curl -k https://localhost`
+and visiting localhost on a web browser, or alternatively `curl -k https://localhost`
